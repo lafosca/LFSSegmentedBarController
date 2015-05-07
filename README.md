@@ -2,7 +2,7 @@
 
 ## Description
 
-LFSSegmentedBarController is a fully customizable tab bar for iOS inspired on Android tab bar. It works with tap gesture on the tabs and scrolling betweent the taps.
+LFSSegmentedBarController is a fully customizable tab bar for iOS inspired on Android tab bar. It works with tap gesture on the tabs and scrolling between the tabs.
 
 ![](https://s3.amazonaws.com/f.cl.ly/items/3W2W290u0Y1i3o470n2S/LFSSegmentedBarController.gif)
 
