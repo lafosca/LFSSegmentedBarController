@@ -1,5 +1,5 @@
 //
-//  ViewController.h
+//  ThirdViewController.h
 //  LFSSegmentedBarControllerExample
 //
 //  Created by David Cortés Fulla on 7/5/15.
@@ -8,8 +8,6 @@
 
 #import <UIKit/UIKit.h>
 
-@interface ViewController : UIViewController
-
+@interface ThirdViewController : UIViewController
 
 @end
-

@@ -7,6 +7,11 @@
 //
 
 #import "AppDelegate.h"
+#import <LFSSegmentedBarController/LFSSegmentedBarController.h>
+
+#import "FirstViewController.h"
+#import "SecondViewController.h"
+#import "ThirdViewController.h"
 
 @interface AppDelegate ()
 
@@ -16,30 +21,38 @@
 
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
-    // Override point for customization after application launch.
+
+    self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
+    
+    LFSSegmentedBarController *tabBarController = [[LFSSegmentedBarController alloc] init];
+//    [tabBarController setFont:[UIFont systemFontOfSize:17.0f]];
+//    [tabBarController setSelectedFont:[UIFont systemFontOfSize:17.0f weight:<#(CGFloat)#>:17.0f]];
+    
+    [tabBarController.segmentedControl setHighlightLineHeight:3.0f];
+    [tabBarController.segmentedControl setLineTintColor:[UIColor whiteColor]];
+    [tabBarController.segmentedControl setSelectedSectionLineTintColor:[UIColor colorWithRed:0.15f green:0.67f blue:0.86f alpha:1]];
+    [tabBarController.segmentedControl setTextColor:[UIColor colorWithWhite:0.0f alpha:0.9f]];
+    [tabBarController.segmentedControl setSelectedTextColor:[UIColor colorWithWhite:0.0f alpha:0.9f]];
+    [tabBarController.segmentedControl setShowFullWithLine:NO];
+    
+    FirstViewController *firstViewController = [[FirstViewController alloc] initWithNibName:NSStringFromClass([FirstViewController class]) bundle:nil];
+    LFSSegmentedBarItem *firstBarItem = [[LFSSegmentedBarItem alloc] initWithTitle:NSLocalizedString(@"Tab 1", nil)];
+    [firstViewController setSegmentedBarItem:firstBarItem];
+    
+    SecondViewController *secondViewController = [[SecondViewController alloc] initWithNibName:NSStringFromClass([SecondViewController class]) bundle:nil];
+    LFSSegmentedBarItem *secondBarItem = [[LFSSegmentedBarItem alloc] initWithTitle:NSLocalizedString(@"Tab 2", nil)];
+    [secondViewController setSegmentedBarItem:secondBarItem];
+    
+    ThirdViewController *thirdViewController = [[ThirdViewController alloc] initWithNibName:NSStringFromClass([ThirdViewController class]) bundle:nil];
+    LFSSegmentedBarItem *thirdBarItem = [[LFSSegmentedBarItem alloc] initWithTitle:NSLocalizedString(@"Tab 3", nil)];
+    [thirdViewController setSegmentedBarItem:thirdBarItem];
+    
+    [tabBarController setViewControllers:@[firstViewController, secondViewController, thirdViewController]];
+    
+    [self.window setRootViewController:tabBarController];
+    [self.window makeKeyAndVisible];
+    
     return YES;
-}
-
-- (void)applicationWillResignActive:(UIApplication *)application {
-    // Sent when the application is about to move from active to inactive state. This can occur for certain types of temporary interruptions (such as an incoming phone call or SMS message) or when the user quits the application and it begins the transition to the background state.
-    // Use this method to pause ongoing tasks, disable timers, and throttle down OpenGL ES frame rates. Games should use this method to pause the game.
-}
-
-- (void)applicationDidEnterBackground:(UIApplication *)application {
-    // Use this method to release shared resources, save user data, invalidate timers, and store enough application state information to restore your application to its current state in case it is terminated later.
-    // If your application supports background execution, this method is called instead of applicationWillTerminate: when the user quits.
-}
-
-- (void)applicationWillEnterForeground:(UIApplication *)application {
-    // Called as part of the transition from the background to the inactive state; here you can undo many of the changes made on entering the background.
-}
-
-- (void)applicationDidBecomeActive:(UIApplication *)application {
-    // Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.
-}
-
-- (void)applicationWillTerminate:(UIApplication *)application {
-    // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
 }
 
 @end

@@ -5,7 +5,7 @@ Pod::Spec.new do |s|
 	s.homepage     = "https://github.com/lafosca/LFSSegmentedBarController"
 
 	s.author       = { "David Cortés" => "david@lafosca.cat" }
-	s.license      = 'MIT'
+	s.license      = { :type => 'MIT', :file => 'LICENSE.md' }
 	s.source       = {
 		:git => "https://github.com/lafosca/LFSSegmentedBarController.git",
 		:tag => "1.0.0"

@@ -37,8 +37,7 @@
     if (self = [super init]){
         CGRect screenRect = [[UIScreen mainScreen] bounds];
         self.segmentedControl = [[LFSSegmentedControl alloc] initWithFrame:CGRectMake(0, 15, screenRect.size.width, 44)];
-        
-
+    
         [self.segmentedControl setDatasource:self];
         [self.segmentedControl setDelegate:self];
         
@@ -74,7 +73,7 @@
 
     for (int i=0; i < [self.viewControllers count]; i++){
         UIViewController *viewController = [self.viewControllers objectAtIndex:i];
-        [viewController.view setFrame:CGRectMake(screenRect.size.width * i, 0 , viewController.view.frame.size.width, viewController.view.frame.size.height)];
+        [viewController.view setFrame:CGRectMake(screenRect.size.width * i, 0 , self.scrollView.frame.size.width, self.scrollView.frame.size.height)];
         [self.scrollView addSubview:viewController.view];
     }
     
