@@ -25,8 +25,6 @@
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     
     LFSSegmentedBarController *tabBarController = [[LFSSegmentedBarController alloc] init];
-//    [tabBarController setFont:[UIFont systemFontOfSize:17.0f]];
-//    [tabBarController setSelectedFont:[UIFont systemFontOfSize:17.0f weight:<#(CGFloat)#>:17.0f]];
     
     [tabBarController.segmentedControl setHighlightLineHeight:3.0f];
     [tabBarController.segmentedControl setLineTintColor:[UIColor whiteColor]];
