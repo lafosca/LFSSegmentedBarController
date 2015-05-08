@@ -262,6 +262,10 @@
     }
 }
 
+- (void)selectButtonAtIndex:(NSUInteger)index animated:(BOOL)animated {
+    [self selectButtonAtIndex:index shouldCallDelegate:YES animated:animated];
+}
+
 - (void)selectButtonAtIndex:(NSUInteger)index shouldCallDelegate:(BOOL)shouldCallDelegate animated:(BOOL)animated{
     //Restore Font to previous selected button
     UIButton *previousSelectedButtton = [self.buttons objectAtIndex:self.selectedButton];
@@ -280,7 +284,7 @@
         [selectedButtton setAlpha:1.0];
         [selectedButtton.titleLabel setFont:[self fontForSelectedButton]];
     } completion:^(BOOL finished) {
-        if ([self.delegate respondsToSelector:@selector(segmentedControl:didSelectItemAtIndex:)]){
+        if (shouldCallDelegate && [self.delegate respondsToSelector:@selector(segmentedControl:didSelectItemAtIndex:)]){
             [self.delegate segmentedControl:self didSelectItemAtIndex:index];
         }
     }];
@@ -337,7 +341,7 @@
     CGFloat width = scrollView.frame.size.width;
     NSInteger page = (scrollView.contentOffset.x + (0.5f * width)) / width;
 
-    if (self.selectedButton != page && !scrollView.isDragging && scrollView.isDecelerating){
+    if (self.selectedButton != page){
         [self selectButtonAtIndex:page shouldCallDelegate:YES animated:NO];
     }
 }

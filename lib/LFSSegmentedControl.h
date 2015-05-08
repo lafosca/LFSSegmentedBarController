@@ -66,6 +66,7 @@ typedef enum{
 
 @property (nonatomic, strong) UIScrollView *scrollView;
 
+- (void)selectButtonAtIndex:(NSUInteger)index animated:(BOOL)animated;
 - (void)reloadData;
 
 @end

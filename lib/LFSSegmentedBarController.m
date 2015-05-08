@@ -28,6 +28,7 @@
 
 @property (nonatomic, strong) UIScrollView *scrollView;
 @property (nonatomic, assign) NSUInteger selectedViewControllerIndex;
+@property (nonatomic, assign) NSUInteger selectedIndex;
 
 @end
 
@@ -80,10 +81,17 @@
     [self.view addSubview:self.scrollView];
 }
 
-- (void)moveScrollToIndex:(NSUInteger)index {
+- (void)setSelectedIndex:(NSUInteger)index animated:(BOOL)animated {
+    if (self.selectedIndex != index){
+        _selectedIndex = index;
+        [self moveScrollToIndex:index animated:animated];
+    }
+}
+
+- (void)moveScrollToIndex:(NSUInteger)index animated:(BOOL)animated {
     CGFloat pageSize = self.scrollView.frame.size.width;
     
-    [self.scrollView setContentOffset:CGPointMake(pageSize * index, 0) animated:YES];
+    [self.scrollView setContentOffset:CGPointMake(pageSize * index, 0) animated:animated];
 }
 
 #pragma mark - LFSSegmentedControl Data Source
@@ -94,7 +102,7 @@
 }
 
 -(NSUInteger)selectedIndexForSegmentedControl:(LFSSegmentedControl *)segmentedControl {
-    return 0;
+    return self.selectedIndex;
 }
 
 -(NSUInteger)numberOfButtonsInSegmentedControl:(LFSSegmentedControl *)segmentedControl {
@@ -106,7 +114,7 @@
     UIViewController *newViewController = [self.viewControllers objectAtIndex:index];
     [oldViewController viewWillDisappear:YES];
     [newViewController viewWillAppear:YES];
-    [self moveScrollToIndex:index];
+    [self moveScrollToIndex:index animated:YES];
     [oldViewController viewDidDisappear:YES];
     [newViewController viewDidAppear:YES];
     self.selectedViewControllerIndex = index;

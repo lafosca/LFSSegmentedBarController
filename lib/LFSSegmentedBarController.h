@@ -36,4 +36,6 @@
 @property (nonatomic, strong) UIFont *font;
 @property (nonatomic, strong) UIFont *selectedFont;
 
+- (void)setSelectedIndex:(NSUInteger)index animated:(BOOL)animated;
+
 @end
