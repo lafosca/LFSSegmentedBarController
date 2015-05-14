@@ -84,7 +84,7 @@
 - (void)setSelectedIndex:(NSUInteger)index animated:(BOOL)animated {
     if (self.selectedIndex != index){
         _selectedIndex = index;
-        [self moveScrollToIndex:index animated:animated];
+        [self.segmentedControl selectButtonAtIndex:index animated:animated];
     }
 }
 
@@ -109,14 +109,14 @@
     return [self.viewControllers count];
 }
 
--(void)segmentedControl:(LFSSegmentedControl *)segmentedControl didSelectItemAtIndex:(NSUInteger)index {
+-(void)segmentedControl:(LFSSegmentedControl *)segmentedControl didSelectItemAtIndex:(NSUInteger)index animated:(BOOL)animated {
     UIViewController *oldViewController = [self.viewControllers objectAtIndex:self.selectedViewControllerIndex];
     UIViewController *newViewController = [self.viewControllers objectAtIndex:index];
-    [oldViewController viewWillDisappear:YES];
-    [newViewController viewWillAppear:YES];
-    [self moveScrollToIndex:index animated:YES];
-    [oldViewController viewDidDisappear:YES];
-    [newViewController viewDidAppear:YES];
+    [oldViewController viewWillDisappear:animated];
+    [newViewController viewWillAppear:animated];
+    [self moveScrollToIndex:index animated:animated];
+    [oldViewController viewDidDisappear:animated];
+    [newViewController viewDidAppear:animated];
     self.selectedViewControllerIndex = index;
 }
 

@@ -46,7 +46,7 @@
     [thirdViewController setSegmentedBarItem:thirdBarItem];
     
     [tabBarController setViewControllers:@[firstViewController, secondViewController, thirdViewController]];
-    [tabBarController setSelectedIndex:1 animated:YES];
+    [tabBarController setSelectedIndex:1 animated:NO];
     
     [self.window setRootViewController:tabBarController];
     [self.window makeKeyAndVisible];

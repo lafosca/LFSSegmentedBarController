@@ -44,7 +44,7 @@ typedef enum{
 
 @protocol LFSSegmentedControlDelegate <NSObject>
 
-- (void)segmentedControl:(LFSSegmentedControl *)segmentedControl didSelectItemAtIndex:(NSUInteger)index;
+-(void)segmentedControl:(LFSSegmentedControl *)segmentedControl didSelectItemAtIndex:(NSUInteger)index animated:(BOOL)animated;
 
 @end
 

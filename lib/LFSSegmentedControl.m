@@ -250,7 +250,7 @@
     } else {
         index = 0;
     }
-    [self selectButtonAtIndex:index shouldCallDelegate:NO animated:YES];
+    [self selectButtonAtIndex:index shouldCallDelegate:NO animated:NO];
 }
 
 - (void)centerButtons {
@@ -276,18 +276,26 @@
     UIButton *selectedButtton = [self.buttons objectAtIndex:self.selectedButton];
     
     if (!self.scrollView){
-        [self updateHighlightedViewToIndex:index animated:animated ];
+        [self updateHighlightedViewToIndex:index animated:animated];
     }
     
     [selectedButtton setAlpha:0.7];
-    [UIView animateWithDuration:kAnimationDuration animations:^{
+    if (animated){
+        [UIView animateWithDuration:kAnimationDuration animations:^{
+            [selectedButtton setAlpha:1.0];
+            [selectedButtton.titleLabel setFont:[self fontForSelectedButton]];
+        } completion:^(BOOL finished) {
+            if (shouldCallDelegate && [self.delegate respondsToSelector:@selector(segmentedControl:didSelectItemAtIndex:animated:)]){
+                [self.delegate segmentedControl:self didSelectItemAtIndex:index animated:animated];
+            }
+        }];
+    } else {
         [selectedButtton setAlpha:1.0];
         [selectedButtton.titleLabel setFont:[self fontForSelectedButton]];
-    } completion:^(BOOL finished) {
-        if (shouldCallDelegate && [self.delegate respondsToSelector:@selector(segmentedControl:didSelectItemAtIndex:)]){
-            [self.delegate segmentedControl:self didSelectItemAtIndex:index];
+        if (shouldCallDelegate && [self.delegate respondsToSelector:@selector(segmentedControl:didSelectItemAtIndex:animated:)]){
+            [self.delegate segmentedControl:self didSelectItemAtIndex:index animated:animated];
         }
-    }];
+    }
 }
 
 - (void)setTitleToButtonWithInformation:(NSDictionary *)information
@@ -341,7 +349,7 @@
     CGFloat width = scrollView.frame.size.width;
     NSInteger page = (scrollView.contentOffset.x + (0.5f * width)) / width;
 
-    if (self.selectedButton != page){
+    if (self.selectedButton != page && scrollView.isDecelerating){
         [self selectButtonAtIndex:page shouldCallDelegate:YES animated:NO];
     }
 }
