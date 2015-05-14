@@ -350,7 +350,7 @@
     NSInteger page = (scrollView.contentOffset.x + (0.5f * width)) / width;
 
     if (self.selectedButton != page && scrollView.isDecelerating){
-        [self selectButtonAtIndex:page shouldCallDelegate:YES animated:NO];
+        [self selectButtonAtIndex:page shouldCallDelegate:YES animated:YES];
     }
 }
 
