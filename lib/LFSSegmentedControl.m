@@ -277,13 +277,12 @@
     [previousSelectedButtton.titleLabel setFont:[self fontForButtons]];
     [previousSelectedButtton setAlpha:0.7];
     self.selectedButton = index;
-    [self.lineView setBackgroundColor:self.selectedSectionLineTintColors[index]];
-    
     
     UIButton *selectedButtton = [self.buttons objectAtIndex:self.selectedButton];
     
     if (!self.scrollView){
         [self updateHighlightedViewToIndex:index animated:animated];
+        [self.lineView setBackgroundColor:self.selectedSectionLineTintColors[index]];
     }
     
     [selectedButtton setAlpha:0.7];
