@@ -27,7 +27,6 @@
     LFSSegmentedBarController *tabBarController = [[LFSSegmentedBarController alloc] init];
     
     [tabBarController.segmentedControl setHighlightLineHeight:3.0f];
-    [tabBarController.segmentedControl setLineTintColor:[UIColor whiteColor]];
     [tabBarController.segmentedControl setSelectedSectionLineTintColor:[UIColor colorWithRed:0.15f green:0.67f blue:0.86f alpha:1]];
     [tabBarController.segmentedControl setTextColor:[UIColor colorWithWhite:0.0f alpha:0.9f]];
     [tabBarController.segmentedControl setSelectedTextColor:[UIColor colorWithWhite:0.0f alpha:0.9f]];

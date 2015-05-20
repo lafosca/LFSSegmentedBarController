@@ -95,6 +95,7 @@
 }
 
 -(void)setShowFullWithLine:(BOOL)showFullWithLine {
+    _showFullWithLine = showFullWithLine;
     [self.fullWidthLine setHidden:!showFullWithLine];
 }
 
@@ -167,11 +168,13 @@
 }
 
 - (void)createBottomLine {
-    self.fullWidthLine = [[UIView alloc] initWithFrame:CGRectMake(0,
-                                                                  self.lineView.frame.size.height + self.lineView.frame.origin.y,
-                                                                  self.frame.size.width, 0.5)];
-    [self.fullWidthLine setBackgroundColor:self.lineTintColor];
-    [self addSubview:self.fullWidthLine];
+    if (self.showFullWithLine){
+        self.fullWidthLine = [[UIView alloc] initWithFrame:CGRectMake(0,
+                                                                      self.lineView.frame.size.height + self.lineView.frame.origin.y,
+                                                                      self.frame.size.width, 0.5)];
+        [self.fullWidthLine setBackgroundColor:self.lineTintColor];
+        [self addSubview:self.fullWidthLine];
+    }
 }
 
 - (void)createButtons {
