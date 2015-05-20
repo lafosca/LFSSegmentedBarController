@@ -356,7 +356,9 @@
     [self.lineView setBackgroundColor:[self lineColorForXPosition:scrollView.contentOffset.x andWidth:width]];
 
     if (self.selectedButton != page && scrollView.isDecelerating){
-        [self selectButtonAtIndex:page shouldCallDelegate:YES animated:YES];
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, 0.25f * NSEC_PER_SEC), dispatch_get_main_queue(), ^{
+            [self selectButtonAtIndex:page shouldCallDelegate:YES animated:YES];
+        });
     }
 }
 
