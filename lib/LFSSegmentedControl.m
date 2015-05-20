@@ -222,7 +222,6 @@
     [customButton.titleLabel setFont:[self fontForSelectedButton]];
     [customButton sizeToFit];
     [customButton.titleLabel setFont:[self fontForButtons]];
-    [customButton setAlpha:0.7];
     [customButton setFrame:CGRectMake(customButton.frame.origin.x,
                                       customButton.frame.origin.y,
                                       customButton.frame.size.width + 9.0, customButton.frame.size.height + 24.0)];
@@ -275,7 +274,7 @@
     //Restore Font to previous selected button
     UIButton *previousSelectedButtton = [self.buttons objectAtIndex:self.selectedButton];
     [previousSelectedButtton.titleLabel setFont:[self fontForButtons]];
-    [previousSelectedButtton setAlpha:0.7];
+    [previousSelectedButtton setSelected:NO];
     self.selectedButton = index;
     
     UIButton *selectedButtton = [self.buttons objectAtIndex:self.selectedButton];
@@ -285,10 +284,9 @@
         [self.lineView setBackgroundColor:self.selectedSectionLineTintColors[index]];
     }
     
-    [selectedButtton setAlpha:0.7];
     if (animated){
         [UIView animateWithDuration:kAnimationDuration animations:^{
-            [selectedButtton setAlpha:1.0];
+            [selectedButtton setSelected:YES];
             [selectedButtton.titleLabel setFont:[self fontForSelectedButton]];
         } completion:^(BOOL finished) {
             if (shouldCallDelegate && [self.delegate respondsToSelector:@selector(segmentedControl:didSelectItemAtIndex:animated:)]){
@@ -296,7 +294,7 @@
             }
         }];
     } else {
-        [selectedButtton setAlpha:1.0];
+        [selectedButtton setSelected:YES];
         [selectedButtton.titleLabel setFont:[self fontForSelectedButton]];
         if (shouldCallDelegate && [self.delegate respondsToSelector:@selector(segmentedControl:didSelectItemAtIndex:animated:)]){
             [self.delegate segmentedControl:self didSelectItemAtIndex:index animated:animated];

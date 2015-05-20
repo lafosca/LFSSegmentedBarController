@@ -27,8 +27,8 @@
     LFSSegmentedBarController *tabBarController = [[LFSSegmentedBarController alloc] init];
     
     [tabBarController.segmentedControl setHighlightLineHeight:3.0f];
-    [tabBarController.segmentedControl setTextColor:[UIColor colorWithWhite:0.0f alpha:0.9f]];
-    [tabBarController.segmentedControl setSelectedTextColor:[UIColor colorWithWhite:0.0f alpha:0.9f]];
+    [tabBarController.segmentedControl setTextColor:[UIColor blackColor]];
+    [tabBarController.segmentedControl setSelectedTextColor:[UIColor redColor]];
     [tabBarController.segmentedControl setShowFullWithLine:NO];
     
     FirstViewController *firstViewController = [[FirstViewController alloc] initWithNibName:NSStringFromClass([FirstViewController class]) bundle:nil];
