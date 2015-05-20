@@ -55,7 +55,7 @@ typedef enum{
 @property (nonatomic, weak) id<LFSSegmentedControlDelegate>delegate;
 
 @property (nonatomic, strong) UIColor *lineTintColor;
-@property (nonatomic, strong) UIColor *selectedSectionLineTintColor;
+@property (nonatomic, strong) NSMutableArray *selectedSectionLineTintColors;
 
 @property (nonatomic, strong) UIColor *textColor;
 @property (nonatomic, strong) UIColor *selectedTextColor;
@@ -66,6 +66,7 @@ typedef enum{
 
 @property (nonatomic, strong) UIScrollView *scrollView;
 
+-(void)setSelectedSectionLineTintColor:(UIColor *)selectedSectionLineTintColor forItemAtIndex:(NSUInteger)index;
 - (void)selectButtonAtIndex:(NSUInteger)index animated:(BOOL)animated;
 - (void)reloadData;
 

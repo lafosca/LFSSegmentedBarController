@@ -54,6 +54,13 @@
     [self updateScrollView];
     [self.segmentedControl reloadData];
     
+    [viewControllers enumerateObjectsUsingBlock:^(UIViewController *vc, NSUInteger idx, BOOL *stop) {
+        LFSSegmentedBarItem *barButtonItem = vc.segmentedBarItem;
+        if (barButtonItem.tintColor){
+        [self.segmentedControl setSelectedSectionLineTintColor:barButtonItem.tintColor forItemAtIndex:idx];
+        }
+    }];
+    
     [self.segmentedControl setScrollView:self.scrollView];
     [self.view bringSubviewToFront:self.segmentedControl];
 }

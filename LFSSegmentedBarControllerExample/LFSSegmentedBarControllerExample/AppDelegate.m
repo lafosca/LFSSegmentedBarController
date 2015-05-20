@@ -27,21 +27,23 @@
     LFSSegmentedBarController *tabBarController = [[LFSSegmentedBarController alloc] init];
     
     [tabBarController.segmentedControl setHighlightLineHeight:3.0f];
-    [tabBarController.segmentedControl setSelectedSectionLineTintColor:[UIColor colorWithRed:0.15f green:0.67f blue:0.86f alpha:1]];
     [tabBarController.segmentedControl setTextColor:[UIColor colorWithWhite:0.0f alpha:0.9f]];
     [tabBarController.segmentedControl setSelectedTextColor:[UIColor colorWithWhite:0.0f alpha:0.9f]];
     [tabBarController.segmentedControl setShowFullWithLine:NO];
     
     FirstViewController *firstViewController = [[FirstViewController alloc] initWithNibName:NSStringFromClass([FirstViewController class]) bundle:nil];
     LFSSegmentedBarItem *firstBarItem = [[LFSSegmentedBarItem alloc] initWithTitle:NSLocalizedString(@"Tab 1", nil)];
+    [firstBarItem setTintColor:[UIColor redColor]];
     [firstViewController setSegmentedBarItem:firstBarItem];
     
     SecondViewController *secondViewController = [[SecondViewController alloc] initWithNibName:NSStringFromClass([SecondViewController class]) bundle:nil];
     LFSSegmentedBarItem *secondBarItem = [[LFSSegmentedBarItem alloc] initWithTitle:NSLocalizedString(@"Tab 2", nil)];
+    [secondBarItem setTintColor:[UIColor greenColor]];
     [secondViewController setSegmentedBarItem:secondBarItem];
     
     ThirdViewController *thirdViewController = [[ThirdViewController alloc] initWithNibName:NSStringFromClass([ThirdViewController class]) bundle:nil];
     LFSSegmentedBarItem *thirdBarItem = [[LFSSegmentedBarItem alloc] initWithTitle:NSLocalizedString(@"Tab 3", nil)];
+    [thirdBarItem setTintColor:[UIColor yellowColor]];
     [thirdViewController setSegmentedBarItem:thirdBarItem];
     
     [tabBarController setViewControllers:@[firstViewController, secondViewController, thirdViewController]];

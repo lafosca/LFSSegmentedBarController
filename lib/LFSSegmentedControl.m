@@ -69,7 +69,6 @@
 - (void)setupDefaultValues {
     self.showFullWithLine = YES;
     self.highlightLineHeight = 1.5f;
-    self.selectedSectionLineTintColor = self.tintColor;
     self.lineTintColor = self.tintColor;
     self.textColor = [UIColor blackColor];
     self.selectedTextColor = [UIColor blackColor];
@@ -113,10 +112,8 @@
     }
 }
 
--(void)setSelectedSectionLineTintColor:(UIColor *)selectedSectionLineTintColor {
-    _selectedSectionLineTintColor = selectedSectionLineTintColor;
-    
-    [self.lineView setBackgroundColor:selectedSectionLineTintColor];
+-(void)setSelectedSectionLineTintColor:(UIColor *)selectedSectionLineTintColor forItemAtIndex:(NSUInteger)index{
+    _selectedSectionLineTintColors[index] = selectedSectionLineTintColor;
 }
 
 -(void)setTextColor:(UIColor *)textColor {
@@ -141,7 +138,12 @@
 
 - (void)reloadData{
     [self resetOldViews];
-    if (self.datasource && [self.datasource numberOfButtonsInSegmentedControl:self] > 0){
+    NSUInteger numberOfItems = [self.datasource numberOfButtonsInSegmentedControl:self];
+    if (self.datasource && numberOfItems > 0){
+        self.selectedSectionLineTintColors = [NSMutableArray arrayWithCapacity:numberOfItems];
+        for (int i=0; i< numberOfItems; i++){
+            self.selectedSectionLineTintColors[i] = self.tintColor;
+        }
         [self createButtons];
         [self selectButtonByDefault];
         [self centerButtons];
@@ -200,7 +202,7 @@
 
 - (void)createHighlightedView {
     self.lineView = [[UIView alloc] init];
-    [self.lineView setBackgroundColor:self.selectedSectionLineTintColor];
+    [self.lineView setBackgroundColor:self.selectedSectionLineTintColors[self.selectedButton]];
     [self updateHighlightedViewToIndex:self.selectedButton animated:YES];
     [self addSubview:self.lineView];
 }
@@ -275,6 +277,8 @@
     [previousSelectedButtton.titleLabel setFont:[self fontForButtons]];
     [previousSelectedButtton setAlpha:0.7];
     self.selectedButton = index;
+    [self.lineView setBackgroundColor:self.selectedSectionLineTintColors[index]];
+    
     
     UIButton *selectedButtton = [self.buttons objectAtIndex:self.selectedButton];
     
@@ -351,10 +355,41 @@
     
     CGFloat width = scrollView.frame.size.width;
     NSInteger page = (scrollView.contentOffset.x + (0.5f * width)) / width;
+    
+    [self.lineView setBackgroundColor:[self lineColorForXPosition:scrollView.contentOffset.x andWidth:width]];
 
     if (self.selectedButton != page && scrollView.isDecelerating){
         [self selectButtonAtIndex:page shouldCallDelegate:YES animated:YES];
     }
+}
+
+- (UIColor *)lineColorForXPosition:(CGFloat)xPosition andWidth:(CGFloat)width {
+    CGFloat page = xPosition / width;
+    NSUInteger numberOfPages = [self.datasource numberOfButtonsInSegmentedControl:self];
+    int intPage = (int)page;
+    if (intPage + 1 < numberOfPages){
+        CGFloat progress = page - intPage;
+        UIColor *firstPageColor = self.selectedSectionLineTintColors[intPage];
+        UIColor *secondPageColor = self.selectedSectionLineTintColors[intPage+1];
+        return [self interpolateRGBColorFrom:firstPageColor to:secondPageColor withFraction:progress];
+    }
+    return self.selectedSectionLineTintColors[intPage];
+}
+
+- (UIColor *)interpolateRGBColorFrom:(UIColor *)start to:(UIColor *)end withFraction:(float)f {
+    
+    f = MAX(0, f);
+    f = MIN(1, f);
+    
+    const CGFloat *c1 = CGColorGetComponents(start.CGColor);
+    const CGFloat *c2 = CGColorGetComponents(end.CGColor);
+    
+    CGFloat r = c1[0] + (c2[0] - c1[0]) * f;
+    CGFloat g = c1[1] + (c2[1] - c1[1]) * f;
+    CGFloat b = c1[2] + (c2[2] - c1[2]) * f;
+    CGFloat a = c1[3] + (c2[3] - c1[3]) * f;
+    
+    return [UIColor colorWithRed:r green:g blue:b alpha:a];
 }
 
 @end

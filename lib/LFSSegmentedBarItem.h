@@ -27,6 +27,7 @@
 @interface LFSSegmentedBarItem : NSObject
 
 @property (nonatomic, strong) NSString *title;
+@property (nonatomic, strong) UIColor *tintColor;
 
 - (id)initWithTitle:(NSString *)title;
 
