@@ -254,7 +254,7 @@
     } else {
         index = 0;
     }
-    [self selectButtonAtIndex:index shouldCallDelegate:NO animated:NO];
+    [self selectButtonAtIndex:index shouldCallDelegate:NO animated:NO moveScrollView:YES];
 }
 
 - (void)centerButtons {
@@ -267,10 +267,10 @@
 }
 
 - (void)selectButtonAtIndex:(NSUInteger)index animated:(BOOL)animated {
-    [self selectButtonAtIndex:index shouldCallDelegate:YES animated:animated];
+    [self selectButtonAtIndex:index shouldCallDelegate:YES animated:animated moveScrollView:YES];
 }
 
-- (void)selectButtonAtIndex:(NSUInteger)index shouldCallDelegate:(BOOL)shouldCallDelegate animated:(BOOL)animated{
+- (void)selectButtonAtIndex:(NSUInteger)index shouldCallDelegate:(BOOL)shouldCallDelegate animated:(BOOL)animated moveScrollView:(BOOL)moveScrollView{
     //Restore Font to previous selected button
     UIButton *previousSelectedButtton = [self.buttons objectAtIndex:self.selectedButton];
     [previousSelectedButtton.titleLabel setFont:[self fontForButtons]];
@@ -289,15 +289,15 @@
             [selectedButtton setSelected:YES];
             [selectedButtton.titleLabel setFont:[self fontForSelectedButton]];
         } completion:^(BOOL finished) {
-            if (shouldCallDelegate && [self.delegate respondsToSelector:@selector(segmentedControl:didSelectItemAtIndex:animated:)]){
-                [self.delegate segmentedControl:self didSelectItemAtIndex:index animated:animated];
+            if (shouldCallDelegate && [self.delegate respondsToSelector:@selector(segmentedControl:didSelectItemAtIndex:animated:moveScrollView:)]){
+                [self.delegate segmentedControl:self didSelectItemAtIndex:index animated:animated moveScrollView:moveScrollView];
             }
         }];
     } else {
         [selectedButtton setSelected:YES];
         [selectedButtton.titleLabel setFont:[self fontForSelectedButton]];
-        if (shouldCallDelegate && [self.delegate respondsToSelector:@selector(segmentedControl:didSelectItemAtIndex:animated:)]){
-            [self.delegate segmentedControl:self didSelectItemAtIndex:index animated:animated];
+        if (shouldCallDelegate && [self.delegate respondsToSelector:@selector(segmentedControl:didSelectItemAtIndex:animated:moveScrollView:)]){
+            [self.delegate segmentedControl:self didSelectItemAtIndex:index animated:animated moveScrollView:moveScrollView];
         }
     }
 }
@@ -335,7 +335,7 @@
 
 - (void)buttonSelected:(UIButton *)sender {
     NSUInteger index = [self.buttons indexOfObject:sender];
-    [self selectButtonAtIndex:index shouldCallDelegate:YES animated:YES];
+    [self selectButtonAtIndex:index shouldCallDelegate:YES animated:YES moveScrollView:YES];
 }
 
 #pragma mark - ScrollView Observing
@@ -356,9 +356,7 @@
     [self.lineView setBackgroundColor:[self lineColorForXPosition:scrollView.contentOffset.x andWidth:width]];
 
     if (self.selectedButton != page && scrollView.isDecelerating){
-        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, 0.25f * NSEC_PER_SEC), dispatch_get_main_queue(), ^{
-            [self selectButtonAtIndex:page shouldCallDelegate:YES animated:YES];
-        });
+        [self selectButtonAtIndex:page shouldCallDelegate:YES animated:YES moveScrollView:NO];
     }
 }
 

@@ -116,12 +116,14 @@
     return [self.viewControllers count];
 }
 
--(void)segmentedControl:(LFSSegmentedControl *)segmentedControl didSelectItemAtIndex:(NSUInteger)index animated:(BOOL)animated {
+-(void)segmentedControl:(LFSSegmentedControl *)segmentedControl didSelectItemAtIndex:(NSUInteger)index animated:(BOOL)animated moveScrollView:(BOOL)moveScrollView{
     UIViewController *oldViewController = [self.viewControllers objectAtIndex:self.selectedViewControllerIndex];
     UIViewController *newViewController = [self.viewControllers objectAtIndex:index];
     [oldViewController viewWillDisappear:animated];
     [newViewController viewWillAppear:animated];
-    [self moveScrollToIndex:index animated:animated];
+    if (moveScrollView){
+        [self moveScrollToIndex:index animated:animated];
+    }
     [oldViewController viewDidDisappear:animated];
     [newViewController viewDidAppear:animated];
     self.selectedViewControllerIndex = index;
