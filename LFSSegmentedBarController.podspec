@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
 	s.name         = "LFSSegmentedBarController"
-	s.version      = "1.0.8"
+	s.version      = "1.0.9"
 	s.summary      = "iOS implementation of Android Tab Bar"
 	s.homepage     = "https://github.com/lafosca/LFSSegmentedBarController"
 
@@ -8,7 +8,7 @@ Pod::Spec.new do |s|
 	s.license      = { :type => 'MIT', :file => 'LICENSE.md' }
 	s.source       = {
 		:git => "https://github.com/lafosca/LFSSegmentedBarController.git",
-		:tag => "1.0.8"
+		:tag => "1.0.9"
 	}
 
 	s.ios.deployment_target = '7.0'
