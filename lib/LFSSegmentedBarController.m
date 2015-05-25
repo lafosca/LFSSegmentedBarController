@@ -70,7 +70,9 @@
 - (void)updateScrollView {
     CGRect screenRect = [[UIScreen mainScreen] bounds];
     [self.view setBackgroundColor:[UIColor whiteColor]];
-    screenRect.origin.y += CGRectGetHeight(self.segmentedControl.frame) + kStatusBarHeight;
+    CGFloat offset = CGRectGetHeight(self.segmentedControl.frame) + kStatusBarHeight;;
+    screenRect.origin.y += offset;
+    screenRect.size.height -= offset;
     
     [self.view setFrame:screenRect];
     self.scrollView = [[UIScrollView alloc] initWithFrame:screenRect];
