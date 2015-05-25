@@ -24,6 +24,8 @@
 
 #import "LFSSegmentedBarController.h"
 
+#define kStatusBarHeight 20.0f
+
 @interface LFSSegmentedBarController() <LFSSegmentedControlDataSource, LFSSegmentedControlDelegate>
 
 @property (nonatomic, strong) UIScrollView *scrollView;
@@ -68,6 +70,7 @@
 - (void)updateScrollView {
     CGRect screenRect = [[UIScreen mainScreen] bounds];
     [self.view setBackgroundColor:[UIColor whiteColor]];
+    screenRect.origin.y += CGRectGetHeight(self.segmentedControl.frame) + kStatusBarHeight;
     
     [self.view setFrame:screenRect];
     self.scrollView = [[UIScrollView alloc] initWithFrame:screenRect];
