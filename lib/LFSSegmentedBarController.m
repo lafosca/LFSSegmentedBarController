@@ -79,6 +79,7 @@
     [self.scrollView setPagingEnabled:YES];
     [self.scrollView setShowsHorizontalScrollIndicator:NO];
     [self.scrollView setShowsVerticalScrollIndicator:NO];
+    [self.scrollView setDelaysContentTouches:NO];
     
     NSUInteger numberOfItems = [self.viewControllers count];
     
