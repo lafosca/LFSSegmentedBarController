@@ -65,6 +65,9 @@
     }
     return self;
 }
+-(void)dealloc {
+    [self.scrollView removeObserver:self forKeyPath:@"contentOffset"];
+}
 
 - (void)setupDefaultValues {
     self.showFullWithLine = YES;
