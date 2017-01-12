@@ -87,13 +87,13 @@
 -(void)setHighlightLineHeight:(CGFloat)highlightLineHeight {
     _highlightLineHeight = highlightLineHeight;
     
-    if ([self.buttons count]>0){
+    if ([self.buttons count]>0)
+    {
         [self.lineView setFrame:CGRectMake(self.lineView.frame.origin.x,
-                                           self.lineView.frame.origin.y,
+                                           self.frame.size.height - highlightLineHeight,
                                            self.lineView.frame.size.width,
                                            highlightLineHeight)];
     }
-    
 }
 
 -(void)setShowFullWithLine:(BOOL)showFullWithLine {
@@ -191,7 +191,7 @@
     for (int i = 0; i < numberOfButtons; i++) {
         NSString *title = [self.datasource segmentedControl:self titleForButtonAtIndex:i];
         UIButton *button =[self createButtonWithTitle:title andOrigin:x];
-        [button setFrame:CGRectMake(x, button.frame.origin.y, ceilf(self.frame.size.width / numberOfButtons), button.frame.size.height + 10.0f)];
+        [button setFrame:CGRectMake(x, button.frame.origin.y, ceilf(self.frame.size.width / numberOfButtons), button.frame.size.height)];
         x = button.frame.size.width + button.frame.origin.x ;
     }
     [self updateTotalWidth];
@@ -227,10 +227,11 @@
     [customButton.titleLabel setFont:[self fontForButtons]];
     [customButton setFrame:CGRectMake(customButton.frame.origin.x,
                                       customButton.frame.origin.y,
-                                      customButton.frame.size.width + 9.0, customButton.frame.size.height + 24.0)];
+                                      customButton.frame.size.width, customButton.frame.size.height)];
     
     [self addSubview:customButton];
     [[self buttons] addObject:customButton];
+
     return customButton;
 }
 
@@ -262,9 +263,13 @@
 
 - (void)centerButtons {
     CGFloat distanceToMove = (self.frame.size.width - self.totalWidth) / 2.0;
-    for (UIButton *button in [self buttons]) {
+    CGFloat centerY = (self.frame.size.height - self.lineView.frame.size.height) / 2.0;
+
+    for (UIButton *button in [self buttons])
+    {
         CGRect buttonFrame = button.frame;
         buttonFrame.origin.x = buttonFrame.origin.x + distanceToMove;
+        buttonFrame.origin.y = centerY - (buttonFrame.size.height / 2.0);
         [button setFrame:buttonFrame];
     }
 }
@@ -332,7 +337,7 @@
 
 - (void)positionLineForButton:(UIButton *)button {
     [self.lineView setFrame:CGRectMake(button.frame.origin.x,
-                                       button.frame.origin.y + button.frame.size.height - 20.0,
+                                       self.frame.size.height - self.highlightLineHeight,
                                        button.frame.size.width, self.highlightLineHeight)];
 }
 
